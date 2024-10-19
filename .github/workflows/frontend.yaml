@@ -13,6 +13,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      APP_VERSION: '1.0'
 
     steps:
     - name: Checkout repository
@@ -30,3 +32,13 @@ jobs:
     - name: Build frontend
       working-directory: frontend
       run: npm run build
+
+    - name: Create archive
+      working-directory: frontend
+      run: tar -czvf sausage-store-${APP_VERSION}.${GITHUB_SHA:0:7}.tar.gz -C dist/frontend .
+
+    - name: Upload frontend files
+      uses: actions/upload-artifact@v3
+      with:
+        name: frontend-archive
+        path: sausage-store-*.tar.gz
