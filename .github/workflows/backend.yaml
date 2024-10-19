@@ -26,7 +26,7 @@ jobs:
 
     - name: Build with Maven
       working-directory: backend
-      run: mvn package -DskipTests=true
+      run: mvn package -DskipTests=true -Dversion.application=${APP_VERSION}.${GITHUB_SHA:0:7}
 
     - name: Run tests
       working-directory: backend
@@ -40,3 +40,9 @@ jobs:
       working-directory: backend
       run: mvn spotbugs:check
       continue-on-error: true
+
+    - name: Upload compiled backend
+      uses: actions/upload-artifact@v3
+      with:
+        name: jar-artifact
+        path: backend/target/*.jar
