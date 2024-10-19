@@ -31,3 +31,12 @@ jobs:
     - name: Run tests
       working-directory: backend
       run: mvn test
+
+    - name: Check codestyle
+      working-directory: backend
+      run: mvn checkstyle:checkstyle
+
+    - name: Spot bugs
+      working-directory: backend
+      run: mvn spotbugs:check
+      continue-on-error: true
