@@ -27,3 +27,7 @@ jobs:
     - name: Build with Maven
       working-directory: backend
       run: mvn package -DskipTests=true
+
+    - name: Run tests
+      working-directory: backend
+      run: mvn test
